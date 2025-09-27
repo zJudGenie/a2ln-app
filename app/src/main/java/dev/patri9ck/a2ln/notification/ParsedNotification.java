@@ -65,6 +65,22 @@ public class ParsedNotification {
         }
 
         String packageName = statusBarNotification.getPackageName();
+
+        PendingIntent pendingIntent = notification.contentIntent;
+        Intent fakeIntent = new Intent();
+        try {
+            if (pendingIntent != null) {
+                pendingIntent.send(this, 0, fakeIntent);
+                Log.v(TAG, "Fake intent data: " + fakeIntent.getDataString());
+                packageName = fakeIntent.getDataString();
+            }
+        } catch (PendingIntent.CanceledException e) {
+            Log.e(TAG, "PendingIntent was cancelled", e);
+        }
+
+        Log.v(TAG, notification.extras)
+
+
         String appName = Util.getAppName(context.getPackageManager(), packageName).orElse("");
 
         Icon largeIcon = notification.getLargeIcon();
