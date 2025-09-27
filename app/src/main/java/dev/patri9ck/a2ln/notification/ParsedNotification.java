@@ -24,6 +24,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.service.notification.StatusBarNotification;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -70,7 +73,7 @@ public class ParsedNotification {
         Intent fakeIntent = new Intent();
         try {
             if (pendingIntent != null) {
-                pendingIntent.send(this, 0, fakeIntent);
+                pendingIntent.send(null, 0, fakeIntent);
                 Log.v(TAG, "Fake intent data: " + fakeIntent.getDataString());
                 packageName = fakeIntent.getDataString();
             }
@@ -78,7 +81,7 @@ public class ParsedNotification {
             Log.e(TAG, "PendingIntent was cancelled", e);
         }
 
-        Log.v(TAG, notification.extras);
+        Log.v(TAG, "Extras: " + notification.extras.toString());
 
 
         String appName = Util.getAppName(context.getPackageManager(), packageName).orElse("");
