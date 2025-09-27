@@ -78,7 +78,7 @@ public class ParsedNotification {
             Log.e(TAG, "PendingIntent was cancelled", e);
         }
 
-        Log.v(TAG, notification.extras)
+        Log.v(TAG, notification.extras);
 
 
         String appName = Util.getAppName(context.getPackageManager(), packageName).orElse("");
